@@ -1,38 +1,24 @@
-import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { streamText } from 'ai';
+import { togetherai } from '@ai-sdk/togetherai';
 
-export async function POST(req: Request) {
-  const { messages } = await req.json();
+export const runtime = 'edge';
+// for API route
 
-  console.log('Incoming messages:', JSON.stringify(messages, null, 2));
 
-  const cleanMessages = messages.map((msg: any) => ({
-    role: msg.role,
-    content: msg.content,
-  }));
+export async function POST(req: NextRequest) {
+  try {
+    const { messages } = await req.json();
 
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'gpt-3.5-turbo', // use this to be safe
-      messages: cleanMessages,
-    }),
-  });
-
-  const data = await response.json();
-
-  console.log('Raw OpenAI response:', JSON.stringify(data, null, 2));
-
-  const message = data.choices?.[0]?.message;
-
-  if (!message) {
-    return NextResponse.json({
-      message: { role: 'assistant', content: 'No response from OpenAI.' },
+    const result = await streamText({
+      model: togetherai('mistralai/Mixtral-8x7B-Instruct-v0.1'),
+      messages,
     });
-  }
 
-  return NextResponse.json({ message });
+    // ✅ Proper streaming response
+    return result.toDataStreamResponse();
+  } catch (error) {
+    console.error('Chat error:', error);
+    return new Response('Internal Server Error', { status: 500 });
+  }
 }

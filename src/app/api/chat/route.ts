@@ -3,8 +3,6 @@ import { streamText } from 'ai';
 import { togetherai } from '@ai-sdk/togetherai';
 
 export const runtime = 'edge';
-// for API route
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,10 +13,12 @@ export async function POST(req: NextRequest) {
       messages,
     });
 
-    // ✅ Proper streaming response
     return result.toDataStreamResponse();
-  } catch (error) {
-    console.error('Chat error:', error);
-    return new Response('Internal Server Error', { status: 500 });
+  } catch (error: any) {
+    console.error('❌ Chat API Error:', error?.message || error);
+    return new Response(JSON.stringify({ error: error?.message || 'Unknown error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

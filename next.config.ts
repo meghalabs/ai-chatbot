@@ -1,11 +1,15 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   experimental: {
-    serverActions: true,
+    serverActions: {
+      bodySizeLimit: '2mb',            // optional
+      allowedOrigins: ['localhost:3000'], // optional
+    },
   },
   env: {
-    TOGETHER_API_KEY: process.env.TOGETHER_API_KEY,
+    TOGETHER_AI_API_KEY: process.env.TOGETHER_AI_API_KEY,
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

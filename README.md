@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🧠 AI Chatbot
 
-First, run the development server:
+An interactive AI-powered chatbot built with Next.js 15, React 19, and the `ai-sdk` using TogetherAI's Mixtral-8x7B-Instruct model. This project streams real-time AI responses using `@ai-sdk/react` and `@ai-sdk/togetherai`.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![Chatbot Screenshot](./Screenshot.png)
+
+## 🚀 Features
+
+- 🤖 Real-time AI chat with streaming
+- 🎨 Clean, responsive UI using Tailwind CSS
+- 🧠 Uses TogetherAI's Mixtral-8x7B-Instruct-v0.1 model
+- ⚡ Built with Next.js 15 App Router and React 19
+- 🔐 Secure API key with `.env` support
+
+## 🛠️ Stack
+
+- **Next.js 15.3.4**
+- **React 19.0.0**
+- **ai** `^3.1.16`
+- **@ai-sdk/react** `^1.2.12`
+- **@ai-sdk/togetherai** `^0.2.14`
+- **Tailwind CSS 4**
+
+## 📁 Project Structure
+
+```
+/app
+  └── page.tsx            # Chat UI component using useChat
+/api/chat
+  └── route.ts            # API route using streamText from ai-sdk
+next.config.ts            # TogetherAI env key + serverActions
+.env.local                # TOGETHER_AI_API_KEY
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📸 Preview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> ![Screenshot](./Screenshot%202025-07-03%20at%2011.52.41%20AM.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌐 How to Run
 
-## Learn More
+```bash
+git clone https://github.com/meghalabs/ai-chatbot.git
+cd ai-chatbot
+npm install
+# Create a .env.local file with:
+# TOGETHER_AI_API_KEY=your_key_here
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Then open [http://localhost:3000](http://localhost:3000)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔐 .env.local
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+TOGETHER_AI_API_KEY=your_togetherai_api_key
+```
 
-## Deploy on Vercel
+## 📦 Package Versions (Fixed)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```json
+{
+  "@ai-sdk/react": "^1.2.12",
+  "@ai-sdk/togetherai": "^0.2.14",
+  "ai": "^3.1.16",
+  "next": "15.3.4",
+  "react": "^19.0.0",
+  "react-dom": "^19.0.0"
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧑‍💻 Author
+
+Made with ❤️ by [Megha](https://github.com/meghalabs)
+
+---
+
+> 💡 Feel free to fork, use, and improve!
